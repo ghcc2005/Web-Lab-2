@@ -10,10 +10,9 @@ function Bear() {
   };
 
   this.move = function (xDir, yDir) {
-    //we add this instruction to keep bear within board
+    this.fitBounds(); //we add this instruction to keep bear within board
     this.x += this.dBear * xDir;
     this.y += this.dBear * yDir;
-    this.fitBounds();
     this.display();
   };
 
@@ -27,7 +26,6 @@ function Bear() {
     let parent = this.htmlElement.parentElement;
     let iw = this.htmlElement.offsetWidth;
     let ih = this.htmlElement.offsetHeight;
-    console.log(ih);
     let l = parent.offsetLeft;
     let t = parent.offsetTop;
     let w = parent.offsetWidth;
@@ -148,10 +146,6 @@ class Bee {
   return;
   }
   
-  if (bees.length >= 1) {
-    deleteBees();
-  }
-  
   
   //create bees
   let i = 1;
@@ -162,15 +156,6 @@ class Bee {
   bees.push(bee); //add the bee object to the bees array
   i++;
   }
-
- }
-
- function deleteBees() {
-  for (let i = 0; i < bees.length; i++) {
-    bees[i].undisplay();
-    bees[i] = null;
-  }
-  bees = []
  }
 
  function moveBees() {
@@ -203,15 +188,10 @@ class Bee {
  }
  
  function addBees() {
-  // lastID is the last id value of the last element in bees array
-  var lastID = bees[bees.length - 1].id.replace(/\D/g, '');
-  
 
-  // put in last ID into new bee object
-  var bee = new Bee(Number(lastID) + 1); //create object and its IMG element
+  var bee = new Bee(1); //create object and its IMG element
   bee.display(); //display the bee
   bees.push(bee); //add the bee object to the bees array
-
  }
 
  function getRandomInt(max) {
@@ -224,11 +204,7 @@ class Bee {
   if (overlap(defender, offender)) { //check if the two image overlap
   let score = hits.innerHTML;
   score = Number(score) + 1; //increment the score
-  // Just making sure not displaying score over 1000
-  if (score <= 1000) {
-    hits.innerHTML = score; //display the new score
-  }
-  
+  hits.innerHTML = score; //display the new score
 
   }
   if (typeof(lastStingTime) !== 'undefined') {
@@ -274,7 +250,7 @@ class Bee {
  
 
 function start() {
-  
+
   //create bear
   bear = new Bear();
 
@@ -282,6 +258,12 @@ function start() {
   bees = new Array();
   makeBees();
   updateBees(); 
+  
+  
+
+  //console.log(typeof(bees));
+  
+  
   
 
   document.addEventListener("keydown", moveBear, false);
