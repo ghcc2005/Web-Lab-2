@@ -1,3 +1,7 @@
+// Setting global variable alerted to only allow game over to be alerted only once
+var alerted = false;
+
+
 function Bear() {
   this.dBear = 100;
   this.htmlElement = document.getElementById("bear");
@@ -162,10 +166,12 @@ class Bee {
  }
 
  function deleteBees() {
+  // For all bees in array, undisplay them first then set the element value to null
   for (let i = 0; i < bees.length; i++) {
     bees[i].undisplay();
     bees[i] = null;
   }
+  // Set bees array to empty array
   bees = []
  }
 
@@ -189,9 +195,13 @@ class Bee {
   
   // checks if stings is 1000 or over if so alert game over, cleartimeout and kill the program
   if (Number(hits.innerHTML) >= 1000) {
-    alert("Game Over");
-    clearTimeout();
-    die();
+    // Check if alert has already been triggered
+    if (alerted === false) {
+      clearTimeout();
+      alert("Game Over");
+      alerted = true;
+      die();
+    }
   }
   
   //update the timer for the next move
@@ -267,6 +277,7 @@ class Bee {
  
 
 function start() {
+  
 
   //create bear
   bear = new Bear();
@@ -277,12 +288,6 @@ function start() {
   updateBees(); 
   
   
-
-  //console.log(typeof(bees));
-  
-  
-  
-
   document.addEventListener("keydown", moveBear, false);
 
   document.getElementById("speedBears").addEventListener("change", function() {
@@ -314,4 +319,3 @@ function start() {
   }, false);
 }
 
-//document.getElementById("periodTimer").value
