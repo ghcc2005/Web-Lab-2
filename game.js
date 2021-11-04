@@ -10,10 +10,9 @@ function Bear() {
   };
 
   this.move = function (xDir, yDir) {
-    //we add this instruction to keep bear within board
     this.x += this.dBear * xDir;
     this.y += this.dBear * yDir;
-    this.fitBounds();
+    this.fitBounds(); //we add this instruction to keep bear within board
     this.display();
   };
 
@@ -151,7 +150,6 @@ class Bee {
     deleteBees();
   }
   
-  
   //create bees
   let i = 1;
   while (i <= nbBees) {
@@ -161,7 +159,6 @@ class Bee {
   bees.push(bee); //add the bee object to the bees array
   i++;
   }
-
  }
 
  function deleteBees() {
@@ -199,20 +196,16 @@ class Bee {
   
   //update the timer for the next move
   updateTimer = setTimeout('updateBees()', period);
-   return Math.floor(Math.random() * max)
  }
  
  function addBees() {
-  // lastID is the last id value of the last element in bees array
+ // lastID is the last id value of the last element in bees array
   var lastID = bees[bees.length - 1].id.replace(/\D/g, '');
-  
-  hits.innerHTML = score; //display the new score
 
   // put in last ID into new bee object
   var bee = new Bee(Number(lastID) + 1); //create object and its IMG element
   bee.display(); //display the bee
   bees.push(bee); //add the bee object to the bees array
-
  }
 
  function getRandomInt(max) {
@@ -229,7 +222,6 @@ class Bee {
   if (score <= 1000) {
     hits.innerHTML = score; //display the new score
   }
-  
 
   }
   if (typeof(lastStingTime) !== 'undefined') {
@@ -276,15 +268,19 @@ class Bee {
 
 function start() {
 
-  
   //create bear
   bear = new Bear();
 
-  }, false);
 
   bees = new Array();
   makeBees();
   updateBees(); 
+  
+  
+
+  //console.log(typeof(bees));
+  
+  
   
 
   document.addEventListener("keydown", moveBear, false);
@@ -316,3 +312,6 @@ function start() {
   document.getElementById("restart").addEventListener("click", function() {
     document.location.href = "";
   }, false);
+}
+
+//document.getElementById("periodTimer").value
